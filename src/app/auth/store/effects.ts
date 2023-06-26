@@ -5,7 +5,7 @@ import { authActions } from './actions';
 import { of, catchError, map, switchMap, tap } from 'rxjs';
 import { CurrentUser } from 'src/app/shared/types/currentUser';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PersistenceService } from 'src/app/shared/services/persistence.service';
+import { PersistanceService } from 'src/app/shared/services/persistance.service';
 import { Router } from '@angular/router';
 
 // get current user effect
@@ -14,12 +14,12 @@ export const getCurrentUserEffect = createEffect(
   (
     actions$ = inject(Actions),
     authService = inject(AuthService),
-    persistenceService = inject(PersistenceService)
+    persistanceService = inject(PersistanceService)
   ) => {
     return actions$.pipe(
       ofType(authActions.getCurrentUser),
       switchMap(() => {
-        const token = persistenceService.get('accessToken');
+        const token = persistanceService.get('accessToken');
         if (!token) {
           return of(authActions.getCurrentUserFailure());
         }
@@ -41,14 +41,14 @@ export const registerEffect = createEffect(
   (
     actions$ = inject(Actions),
     authService = inject(AuthService),
-    persistenceService = inject(PersistenceService)
+    persistanceService = inject(PersistanceService)
   ) => {
     return actions$.pipe(
       ofType(authActions.register),
       switchMap(({ request }) => {
         return authService.register(request).pipe(
           map((currentUser: CurrentUser) => {
-            persistenceService.set('accessToken', currentUser.token);
+            persistanceService.set('accessToken', currentUser.token);
             return authActions.registerSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -69,17 +69,19 @@ export const loginEffect = createEffect(
   (
     actions$ = inject(Actions),
     authService = inject(AuthService),
-    persistenceService = inject(PersistenceService)
+    persistance = inject(PersistanceService)
   ) => {
     return actions$.pipe(
       ofType(authActions.login),
       switchMap(({ request }) => {
         return authService.login(request).pipe(
           map((currentUser: CurrentUser) => {
-            persistenceService.set('accessToken', currentUser.token);
+            debugger;
+            persistance.set('accessToken', currentUser.token);
             return authActions.loginSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
+            debugger;
             return of(
               authActions.loginFailure({
                 errors: errorResponse.error.errors,

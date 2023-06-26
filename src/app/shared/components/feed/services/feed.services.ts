@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GetFeedResponse } from 'src/app/globalFeed/types/getFeedResponse';
+import { GetFeedResponse } from 'src/app/shared/components/feed/types/getFeedResponse';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,6 +12,6 @@ export class FeedService {
 
   getFeed(url: string): Observable<GetFeedResponse> {
     const fullUrl = environment.apiUrl + url;
-    return this.http.get<GetFeedResponse>(url);
+    return this.http.get<GetFeedResponse>(fullUrl);
   }
 }

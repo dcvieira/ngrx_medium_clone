@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { BannerComponent } from 'src/app/shared/components/banner/banner.component';
+import { ErrorMessageComponent } from 'src/app/shared/components/errorMessage/errorMessage.component';
 import { FeedComponent } from 'src/app/shared/components/feed/feed.component';
 
 @Component({
   selector: 'app-global-feed',
   templateUrl: './globalFeed.component.html',
   standalone: true,
-  imports: [FeedComponent],
+  imports: [FeedComponent, BannerComponent, ErrorMessageComponent],
 })
-export class GlobalFeedComponent {}
+export class GlobalFeedComponent {
+  apiUrl = '/articles';
+}

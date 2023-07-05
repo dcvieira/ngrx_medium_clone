@@ -10,6 +10,7 @@ import { ErrorMessageComponent } from '../errorMessage/errorMessage.component';
 import { environment } from 'src/environments/environment';
 import { PaginationComponent } from '../pagination/pagination.component';
 import queryString from 'query-string';
+import { TagListComponent } from '../tagList/tagList.component';
 
 @Component({
   selector: 'app-feed',
@@ -21,6 +22,7 @@ import queryString from 'query-string';
     ErrorMessageComponent,
     LoadingComponent,
     PaginationComponent,
+    TagListComponent,
   ],
 })
 export class FeedComponent implements OnInit {

@@ -6,11 +6,16 @@
       >
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/']"
+      <a
+        class="nav-link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        queryParamsHandling="merge"
+        [routerLink]="['/']"
         >Global Feed</a
       >
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="tagName">
       <a
         class="nav-link"
         routerLinkActive="active"

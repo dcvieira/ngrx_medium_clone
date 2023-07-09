@@ -76,12 +76,10 @@ export const loginEffect = createEffect(
       switchMap(({ request }) => {
         return authService.login(request).pipe(
           map((currentUser: CurrentUser) => {
-            debugger;
             persistance.set('accessToken', currentUser.token);
             return authActions.loginSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            debugger;
             return of(
               authActions.loginFailure({
                 errors: errorResponse.error.errors,
